@@ -1,0 +1,125 @@
+:root {
+  --primary-color: #007bff;
+  --primary-color-rgb: 0, 123, 255;
+  --primary-hover: #0056b3;
+  --success-color: #28a745;
+  --success-color-rgb: 40, 167, 69;
+  --error-color: #dc3545;
+  --error-color-rgb: 220, 53, 69;
+  --font-family: Arial, sans-serif;
+  --border-radius: 4px;
+  --transition-speed: 0.2s;
+}
+
+.idea-form {
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: var(--font-family);
+}
+
+.idea-form__input,
+.idea-form__textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color var(--transition-speed) ease-in-out;
+}
+
+.idea-form__input:focus-visible,
+.idea-form__textarea:focus-visible {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.25);
+}
+
+.submit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  color: #fff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color var(--transition-speed) ease-in-out,
+              opacity var(--transition-speed) ease-in-out;
+  position: relative;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.submit-btn.loading .spinner {
+  display: inline-block;
+}
+
+.spinner {
+  display: none;
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+#resultContainer {
+  margin-top: 1rem;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  font-size: 1rem;
+}
+
+#resultContainer.visible {
+  opacity: 1;
+}
+
+#resultContainer.success {
+  color: var(--success-color);
+}
+
+#resultContainer.error {
+  color: var(--error-color);
+}
+
+@media (max-width: 480px) {
+  .submit-btn {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .idea-form__input,
+  .idea-form__textarea,
+  .submit-btn,
+  #resultContainer {
+    transition: none !important;
+  }
+  .spinner {
+    animation: none !important;
+  }
+}
