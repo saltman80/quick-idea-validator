@@ -20,7 +20,8 @@ function enforceRateLimit(string $ip): void
     }
 
     // Fallback to file-based rate limiting
-    $logDir = __DIR__ . '/logs';
+    // project-root/logs
+    $logDir = dirname(__DIR__, 2) . '/logs';
     $logFile = $logDir . '/requests.log';
 
     // Ensure log directory exists

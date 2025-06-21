@@ -2,6 +2,10 @@
 
 namespace QuickIdeaValidator\Logging;
 
+use InvalidArgumentException;
+use RuntimeException;
+use Throwable;
+
 class RequestErrorLogManager
 {
     private string $logFilePath;
