@@ -14,8 +14,8 @@ spl_autoload_register(function ($class) {
 });
 
 foreach ([
-    __DIR__ . '/../promptApiProcessor.php',
-    __DIR__ . '/../ipRateLimiter.php',
+    __DIR__ . '/../src/AI/promptApiProcessor.php',
+    __DIR__ . '/../src/RateLimit/ipRateLimiter.php',
     __DIR__ . '/../defineOpenRouterApiKey.php'
 ] as $file) {
     if (is_file($file)) {

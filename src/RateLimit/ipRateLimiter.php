@@ -80,5 +80,4 @@ function enforceRateLimit(string $ip): void
         fclose($fp);
     }
 }
-?>
 
