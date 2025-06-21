@@ -22,7 +22,11 @@ function buildInstruction(): string {
 }
 
 function callOpenRouterAPI(string $instruction, string $idea): array {
-    $logger = new RequestErrorLogManager();
+    // point the logger at your project-root "logs" folder
+    $logger = new RequestErrorLogManager(
+        dirname(__DIR__, 2) . '/logs',
+        'request_errors.log'
+    );
     if (!defined('OPENROUTER_API_KEY') || OPENROUTER_API_KEY === '') {
         $logger->logError(500, 'Missing OpenRouter API key');
         throw new Exception('Missing OpenRouter API key.');
