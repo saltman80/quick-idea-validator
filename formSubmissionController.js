@@ -1,16 +1,21 @@
+const ideaForm = document.getElementById('ideaForm');
 const ideaInput = document.getElementById('ideaInput');
 const submitBtn = document.getElementById('submitBtn');
 const resultBox = document.getElementById('resultContainer');
-const spinner = document.getElementById('spinner');
 const csrfTokenInput = document.getElementById('csrfToken') || document.querySelector('input[name="csrf_token"]');
 const csrfToken = csrfTokenInput ? csrfTokenInput.value : '';
 
 function debounce(fn, delay) {
   let timer = null;
-  return function() {
-    const args = arguments;
+  return function(...args) {
+    if (!timer) {
+      fn.apply(this, args);
+    }
     clearTimeout(timer);
-    timer = setTimeout(() => fn.apply(this, args), delay);
+    timer = setTimeout(() => {
+      timer = null;
+      fn.apply(this, args);
+    }, delay);
   };
 }
 
@@ -44,11 +49,11 @@ function validateInput(e) {
 }
 
 function showSpinner() {
-  spinner.style.display = 'inline-block';
+  submitBtn.classList.add('loading');
 }
 
 function hideSpinner() {
-  spinner.style.display = 'none';
+  submitBtn.classList.remove('loading');
 }
 
 function showError(err) {
@@ -83,7 +88,10 @@ function sendIdeaToServer(e) {
   submitBtn.disabled = true;
   clearResultClasses();
   resultBox.textContent = '';
-  const headers = { 'Content-Type': 'application/json' };
+  const headers = {
+    'Content-Type': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest'
+  };
   if (csrfToken) headers['X-CSRF-Token'] = csrfToken;
   fetch('aivalidationhandler.php', {
     method: 'POST',
@@ -103,4 +111,4 @@ function sendIdeaToServer(e) {
 }
 
 ideaInput.addEventListener('input', debounce(validateInput, 300));
-submitBtn.addEventListener('click', sendIdeaToServer);
+ideaForm.addEventListener('submit', sendIdeaToServer);
