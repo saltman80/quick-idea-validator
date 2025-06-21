@@ -1,6 +1,6 @@
 <?php
 
-public static function enforceRateLimit(string $ip): void
+function enforceRateLimit(string $ip): void
 {
     // Validate IP
     if (filter_var($ip, FILTER_VALIDATE_IP) === false) {
@@ -81,3 +81,4 @@ public static function enforceRateLimit(string $ip): void
     }
 }
 ?>
+

@@ -1,8 +1,8 @@
 const ideaInput = document.getElementById('ideaInput');
 const submitBtn = document.getElementById('submitBtn');
-const resultBox = document.getElementById('resultBox');
+const resultBox = document.getElementById('resultContainer');
 const spinner = document.getElementById('spinner');
-const csrfTokenInput = document.querySelector('input[name="csrfToken"]');
+const csrfTokenInput = document.getElementById('csrfToken') || document.querySelector('input[name="csrf_token"]');
 const csrfToken = csrfTokenInput ? csrfTokenInput.value : '';
 
 function debounce(fn, delay) {
@@ -85,7 +85,7 @@ function sendIdeaToServer(e) {
   resultBox.textContent = '';
   const headers = { 'Content-Type': 'application/json' };
   if (csrfToken) headers['X-CSRF-Token'] = csrfToken;
-  fetch('backend/aivalidationhandler.php', {
+  fetch('aivalidationhandler.php', {
     method: 'POST',
     headers: headers,
     body: JSON.stringify({ idea })
