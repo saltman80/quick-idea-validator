@@ -47,7 +47,7 @@ try {
     ]);
 } catch (Throwable $e) {
     $errorId = bin2hex(random_bytes(4));
-    $logger  = new RequestErrorLogManager(__DIR__ . '/../../logs', 'request_errors.log');
+    $logger  = new RequestErrorLogManager(dirname(__DIR__, 3) . '/logs', 'request_errors.log');
     $logger->logError(
         $e->getCode(),
         $e->getMessage() . "\n" . $e->getTraceAsString(),
