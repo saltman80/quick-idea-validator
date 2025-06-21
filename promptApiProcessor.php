@@ -22,15 +22,16 @@ function buildInstruction(): string {
 
 function callOpenRouterAPI(string $instruction, string $idea): array {
     $logger = new RequestErrorLogManager();
-    $apiKey = getenv('OPENROUTER_API_KEY');
+    // Hard-coded API token. Replace with your actual token.
+    $apiKey = defined('OPENROUTER_API_KEY') ? OPENROUTER_API_KEY : 'orkey-your-token';
     if (empty($apiKey)) {
         $logger->logError(500, 'Missing OpenRouter API key');
         throw new Exception('Missing OpenRouter API key.');
     }
 
-    $url = 'https://openrouter.ai/v1/chat/completions';
+    $url = 'https://openrouter.ai/api/v1/chat/completions';
     $payload = [
-        'model'       => 'gpt-3.5-turbo',
+        'model'       => 'openai/gpt-4o-mini',
         'messages'    => [
             ['role' => 'system', 'content' => $instruction],
             ['role' => 'user',   'content' => $idea],
@@ -46,6 +47,8 @@ function callOpenRouterAPI(string $instruction, string $idea): array {
         CURLOPT_HTTPHEADER      => [
             'Content-Type: application/json',
             'Authorization: Bearer ' . $apiKey,
+            'HTTP-Referer: https://www.example.com',
+            'X-Title: Quick Idea Validator',
         ],
         CURLOPT_POSTFIELDS      => json_encode($payload),
         CURLOPT_CONNECTTIMEOUT  => 5,
