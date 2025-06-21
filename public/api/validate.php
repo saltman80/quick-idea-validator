@@ -1,8 +1,7 @@
 <?php
 require __DIR__ . '/../../vendor/autoload.php';
-require __DIR__ . '/../../defineOpenRouterApiKey.php';
-
 use QuickIdeaValidator\Logging\RequestErrorLogManager;
+
 
 session_start();
 header('Content-Type: application/json; charset=utf-8');
