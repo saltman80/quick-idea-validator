@@ -1,4 +1,4 @@
-require_once __DIR__ . '/requestErrorLogManager.php';
+use QuickIdeaValidator\Logging\RequestErrorLogManager;
 
 function sanitizeIdea(string $idea): string {
     $clean = strip_tags($idea);
