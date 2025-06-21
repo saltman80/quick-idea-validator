@@ -27,11 +27,8 @@ function callOpenRouterAPI(string $instruction, string $idea): array {
         dirname(__DIR__, 2) . '/logs',
         'request_errors.log'
     );
-    if (!defined('OPENROUTER_API_KEY') || OPENROUTER_API_KEY === '') {
-        $logger->logError(500, 'Missing OpenRouter API key');
-        throw new Exception('Missing OpenRouter API key.');
-    }
-    $apiKey = OPENROUTER_API_KEY;
+    // hard-code your key for this demo:
+    $apiKey = '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';
 
     $url = 'https://openrouter.ai/api/v1/chat/completions';
     $payload = [
