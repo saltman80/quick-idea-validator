@@ -1,5 +1,7 @@
 <?php
 require __DIR__ . '/../../vendor/autoload.php';
+// bring in the parseAIResponse helper
+require_once __DIR__ . '/../../src/AI/responseParser.php';
 use QuickIdeaValidator\Logging\RequestErrorLogManager;
 
 
