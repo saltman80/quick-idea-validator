@@ -18,10 +18,11 @@ $csrf_token = $_SESSION['csrf_token'];
     <h1>Quick Idea Validator</h1>
   </header>
 
-  <form id="ideaForm" action="aivalidationhandler.php" method="post" novalidate>
+  <form id="ideaForm" class="idea-form" action="aivalidationhandler.php" method="post" novalidate>
     <label for="ideaInput" class="sr-only">Describe your idea</label>
     <textarea
       id="ideaInput"
+      class="idea-form__textarea"
       name="idea"
       maxlength="200"
       rows="4"
@@ -30,10 +31,12 @@ $csrf_token = $_SESSION['csrf_token'];
       aria-required="true"
     ></textarea>
     <input type="hidden" id="csrfToken" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
-    <button type="submit" id="submitBtn" disabled>Validate Idea</button>
+    <button type="submit" id="submitBtn" class="submit-btn" disabled>
+      Validate Idea
+      <span id="spinner" class="spinner" aria-hidden="true"></span>
+    </button>
   </form>
 
-  <div id="spinner" class="spinner" hidden aria-live="polite" aria-busy="true"></div>
   <div id="resultContainer" aria-live="polite"></div>
 
   <script src="ariaLiveAnnouncer.js" defer></script>

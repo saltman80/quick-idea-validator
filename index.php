@@ -6,6 +6,12 @@ define('RATE_LIMIT_SECONDS', 60);
 define('MODEL', 'gpt-3.5-turbo');
 define('OPENROUTER_ENDPOINT', 'https://api.openrouter.ai/v1/chat/completions');
 
+session_start();
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+$csrf_token = $_SESSION['csrf_token'];
+
 function loadEnv($path) {
     $vars = [];
     if (!file_exists($path)) return $vars;
@@ -121,59 +127,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_SERVER['HTTP_X_REQUESTED_W
 <head>
     <meta charset="UTF-8">
     <title>Quick Idea Validator</title>
-    <style>
-        body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
-        #container { max-width: 600px; margin: auto; background: #fff; padding: 20px; border-radius: 5px; }
-        textarea { width: 100%; height: 100px; padding: 10px; margin-bottom: 10px; resize: vertical; }
-        button { padding: 10px 20px; background: #007BFF; color: #fff; border: none; cursor: pointer; border-radius: 3px; }
-        button:disabled { background: #aaa; cursor: not-allowed; }
-        #result { margin-top: 20px; font-size: 1.2em; }
-    </style>
+    <link rel="stylesheet" href="responsiveFormComponents.css">
 </head>
 <body>
-<div id="container">
+  <header>
     <h1>Quick Idea Validator</h1>
-    <p>Enter your app or startup idea and we'll tell you if it's viable.</p>
-    <textarea id="idea" placeholder="Describe your idea..."></textarea>
-    <button id="submit">Validate Idea</button>
-    <div id="result"></div>
-</div>
-<script>
-document.getElementById('submit').addEventListener('click', function(){
-    var btn = this;
-    var idea = document.getElementById('idea').value.trim();
-    var resultDiv = document.getElementById('result');
-    resultDiv.textContent = '';
-    if (!idea) { resultDiv.textContent = 'Please enter an idea.'; return; }
-    btn.disabled = true;
-    resultDiv.textContent = 'Validating...';
-    fetch('', {
-        method:'POST',
-        headers: {'Content-Type':'application/json','X-Requested-With':'XMLHttpRequest'},
-        body: JSON.stringify({idea: idea})
-    })
-    .then(function(res){
-        if (!res.ok) throw res;
-        return res.json();
-    })
-    .then(function(data){
-        if (data.success) {
-            resultDiv.textContent = 'Verdict: ' + data.verdict + (data.message ? ' ('+data.message+')' : '');
-        } else {
-            resultDiv.textContent = 'Error: ' + data.error;
-        }
-    })
-    .catch(function(err){
-        if (err.json) {
-            err.json().then(function(e){ resultDiv.textContent = 'Error: ' + (e.error||'Unknown'); });
-        } else {
-            resultDiv.textContent = 'Network error.';
-        }
-    })
-    .finally(function(){
-        btn.disabled = false;
-    });
-});
-</script>
+  </header>
+
+  <form id="ideaForm" class="idea-form" action="aivalidationhandler.php" method="post" novalidate>
+    <label for="ideaInput" class="sr-only">Describe your idea</label>
+    <textarea
+      id="ideaInput"
+      class="idea-form__textarea"
+      name="idea"
+      maxlength="200"
+      rows="4"
+      placeholder="Enter your idea (max 200 characters)"
+      required
+      aria-required="true"
+    ></textarea>
+    <input type="hidden" id="csrfToken" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8'); ?>">
+    <button type="submit" id="submitBtn" class="submit-btn" disabled>
+      Validate Idea
+      <span id="spinner" class="spinner" aria-hidden="true"></span>
+    </button>
+  </form>
+
+  <div id="resultContainer" aria-live="polite"></div>
+
+  <script src="formSubmissionController.js" defer></script>
 </body>
 </html>
