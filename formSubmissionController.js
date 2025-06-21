@@ -8,7 +8,6 @@ const csrfToken = csrfTokenInput ? csrfTokenInput.value : '';
 function debounce(fn, delay) {
   let timer = null;
   return function (...args) {
-    fn.apply(this, args);
     clearTimeout(timer);
     timer = setTimeout(() => {
       fn.apply(this, args);

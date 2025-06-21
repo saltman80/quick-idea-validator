@@ -1,0 +1,12 @@
+{
+  "autoload": {
+    "psr-4": {
+      "QuickIdeaValidator\\": "src/"
+    },
+    "files": [
+      "promptApiProcessor.php",
+      "ipRateLimiter.php",
+      "defineOpenRouterApiKey.php"
+    ]
+  }
+}

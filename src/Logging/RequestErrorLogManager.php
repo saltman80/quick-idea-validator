@@ -1,5 +1,7 @@
 <?php
 
+namespace QuickIdeaValidator\Logging;
+
 class RequestErrorLogManager
 {
     private string $logFilePath;
