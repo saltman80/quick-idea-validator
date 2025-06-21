@@ -16,9 +16,7 @@ function debounce(fn, delay) {
 }
 
 function sanitize(input) {
-  const div = document.createElement('div');
-  div.textContent = input;
-  return div.innerHTML.trim();
+  return input.replace(/<[^>]*>/g, '');
 }
 
 function clearResultClasses() {
@@ -32,7 +30,7 @@ function validateInput(e) {
     e.target.value = clean;
     raw = clean;
   }
-  if (clean.length < 3) {
+  if (clean.trim().length < 3) {
     submitBtn.disabled = true;
     clearResultClasses();
     resultBox.classList.add('info', 'visible');
@@ -89,7 +87,7 @@ function renderResult(data) {
 function sendIdeaToServer(e) {
   if (e && e.preventDefault) e.preventDefault();
   const idea = sanitize(ideaInput.value);
-  if (!idea) {
+  if (idea.trim().length === 0) {
     showError('Idea cannot be empty.');
     return;
   }
