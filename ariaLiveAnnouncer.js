@@ -49,4 +49,4 @@ const AriaLiveAnnouncer = (() => {
     }
     return { announce, announcePolite, announceAssertive };
 })();
-export default AriaLiveAnnouncer;
+window.AriaLiveAnnouncer = AriaLiveAnnouncer;

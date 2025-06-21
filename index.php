@@ -10,6 +10,7 @@ $csrf_token = $_SESSION['csrf_token'];
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quick Idea Validator</title>
     <link rel="stylesheet" href="responsiveFormComponents.css">
 </head>

@@ -7,13 +7,10 @@ const csrfToken = csrfTokenInput ? csrfTokenInput.value : '';
 
 function debounce(fn, delay) {
   let timer = null;
-  return function(...args) {
-    if (!timer) {
-      fn.apply(this, args);
-    }
+  return function (...args) {
+    fn.apply(this, args);
     clearTimeout(timer);
     timer = setTimeout(() => {
-      timer = null;
       fn.apply(this, args);
     }, delay);
   };
@@ -26,7 +23,7 @@ function sanitize(input) {
 }
 
 function clearResultClasses() {
-  resultBox.classList.remove('info', 'success', 'error');
+  resultBox.classList.remove('info', 'success', 'error', 'visible');
 }
 
 function validateInput(e) {
@@ -39,12 +36,16 @@ function validateInput(e) {
   if (clean.length < 3) {
     submitBtn.disabled = true;
     clearResultClasses();
-    resultBox.classList.add('info');
+    resultBox.classList.add('info', 'visible');
     resultBox.textContent = 'Please enter at least 3 characters.';
+    if (window.AriaLiveAnnouncer) {
+      window.AriaLiveAnnouncer.announcePolite(resultBox.textContent);
+    }
   } else {
     submitBtn.disabled = false;
     clearResultClasses();
     resultBox.textContent = '';
+    resultBox.classList.remove('visible');
   }
 }
 
@@ -58,8 +59,11 @@ function hideSpinner() {
 
 function showError(err) {
   clearResultClasses();
-  resultBox.classList.add('error');
+  resultBox.classList.add('error', 'visible');
   resultBox.textContent = typeof err === 'string' ? err : (err.message || 'An unexpected error occurred.');
+  if (window.AriaLiveAnnouncer) {
+    window.AriaLiveAnnouncer.announceAssertive(resultBox.textContent);
+  }
 }
 
 function renderResult(data) {
@@ -69,11 +73,17 @@ function renderResult(data) {
   }
   clearResultClasses();
   if (data.valid) {
-    resultBox.classList.add('success');
+    resultBox.classList.add('success', 'visible');
     resultBox.textContent = data.feedback || 'Your idea looks good!';
+    if (window.AriaLiveAnnouncer) {
+      window.AriaLiveAnnouncer.announcePolite(resultBox.textContent);
+    }
   } else {
-    resultBox.classList.add('error');
+    resultBox.classList.add('error', 'visible');
     resultBox.textContent = data.feedback || 'Sorry, that idea may not work.';
+    if (window.AriaLiveAnnouncer) {
+      window.AriaLiveAnnouncer.announceAssertive(resultBox.textContent);
+    }
   }
 }
 
@@ -88,6 +98,7 @@ function sendIdeaToServer(e) {
   submitBtn.disabled = true;
   clearResultClasses();
   resultBox.textContent = '';
+  resultBox.classList.remove('visible');
   const headers = {
     'Content-Type': 'application/json',
     'X-Requested-With': 'XMLHttpRequest'
