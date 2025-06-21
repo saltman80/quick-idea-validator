@@ -23,7 +23,6 @@
   font-family: var(--font-family);
 }
 
-.idea-form__input,
 .idea-form__textarea {
   width: 100%;
   padding: 0.75rem;
@@ -35,7 +34,6 @@
   transition: border-color var(--transition-speed) ease-in-out;
 }
 
-.idea-form__input:focus-visible,
 .idea-form__textarea:focus-visible {
   outline: none;
   border-color: var(--primary-color);
@@ -113,7 +111,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .idea-form__input,
   .idea-form__textarea,
   .submit-btn,
   #resultContainer {
