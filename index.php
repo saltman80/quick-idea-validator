@@ -16,10 +16,13 @@ $csrf_token = $_SESSION['csrf_token'];
     <link rel="stylesheet" href="responsiveFormComponents.css">
 </head>
 <body>
-  <header>
+  <header class="site-header">
+    <img src="header-placeholder.jpg" alt="" class="header-image" />
     <h1>Quick Idea Validator</h1>
+    <p class="instructions">Enter your idea below and get instant AI feedback. Nothing is stored or saved.</p>
   </header>
 
+  <main class="app-main">
   <form id="ideaForm" class="idea-form" action="aivalidationhandler.php" method="post" novalidate>
     <label for="ideaInput" class="sr-only">Describe your idea</label>
     <textarea
@@ -39,7 +42,9 @@ $csrf_token = $_SESSION['csrf_token'];
     </button>
   </form>
 
-  <div id="resultContainer" aria-live="polite"></div>
+  <div id="resultContainer" aria-live="polite" class="response-box"></div>
+
+  </main>
 
   <script src="ariaLiveAnnouncer.js" defer></script>
   <script src="formSubmissionController.js" defer></script>

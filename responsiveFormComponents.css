@@ -1,14 +1,64 @@
 :root {
-  --primary-color: #007bff;
-  --primary-color-rgb: 0, 123, 255;
-  --primary-hover: #0056b3;
+  --primary-color: #29b6f6;
+  --primary-color-rgb: 41, 182, 246;
+  --primary-hover: #0288d1;
   --success-color: #28a745;
   --success-color-rgb: 40, 167, 69;
   --error-color: #dc3545;
   --error-color-rgb: 220, 53, 69;
-  --font-family: Arial, sans-serif;
-  --border-radius: 4px;
+  --font-family: "Segoe UI", Tahoma, sans-serif;
+  --border-radius: 6px;
   --transition-speed: 0.2s;
+  --background-start: #141e30;
+  --background-end: #243b55;
+}
+
+body {
+  font-family: var(--font-family);
+  margin: 0;
+  background: linear-gradient(135deg, var(--background-start), var(--background-end));
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-header {
+  text-align: center;
+  padding: 2rem 1rem 1rem;
+}
+
+.header-image {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  margin-bottom: 1rem;
+}
+
+.instructions {
+  margin-top: 0.5rem;
+  opacity: 0.85;
+}
+
+.app-main {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.response-box {
+  width: 100%;
+  max-width: 600px;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .idea-form {
@@ -17,21 +67,24 @@
   margin: 2rem auto;
   padding: 1rem;
   box-sizing: border-box;
-  background-color: #f9f9f9;
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: var(--border-radius);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
   font-family: var(--font-family);
+  backdrop-filter: blur(6px);
 }
 
 .idea-form__textarea {
   width: 100%;
   padding: 0.75rem;
   margin-bottom: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
   border-radius: var(--border-radius);
   font-size: 1rem;
   box-sizing: border-box;
-  transition: border-color var(--transition-speed) ease-in-out;
+  transition: border-color var(--transition-speed) ease-in-out, background-color var(--transition-speed) ease-in-out;
 }
 
 .idea-form__textarea:focus-visible {
@@ -52,12 +105,15 @@
   border-radius: var(--border-radius);
   cursor: pointer;
   transition: background-color var(--transition-speed) ease-in-out,
-              opacity var(--transition-speed) ease-in-out;
+              opacity var(--transition-speed) ease-in-out,
+              transform var(--transition-speed) ease-in-out;
   position: relative;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .submit-btn:hover:not(:disabled) {
   background-color: var(--primary-hover);
+  transform: translateY(-2px);
 }
 
 .submit-btn:disabled {
@@ -90,6 +146,9 @@
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   font-size: 1rem;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: var(--border-radius);
 }
 
 #resultContainer.visible {
