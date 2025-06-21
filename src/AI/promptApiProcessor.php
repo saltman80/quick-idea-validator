@@ -1,3 +1,4 @@
+<?php
 use QuickIdeaValidator\Logging\RequestErrorLogManager;
 
 function sanitizeIdea(string $idea): string {
@@ -22,12 +23,11 @@ function buildInstruction(): string {
 
 function callOpenRouterAPI(string $instruction, string $idea): array {
     $logger = new RequestErrorLogManager();
-    // Hard-coded API token. Replace with your actual token.
-    $apiKey = defined('OPENROUTER_API_KEY') ? OPENROUTER_API_KEY : 'orkey-your-token';
-    if (empty($apiKey)) {
+    if (!defined('OPENROUTER_API_KEY') || OPENROUTER_API_KEY === '') {
         $logger->logError(500, 'Missing OpenRouter API key');
         throw new Exception('Missing OpenRouter API key.');
     }
+    $apiKey = OPENROUTER_API_KEY;
 
     $url = 'https://openrouter.ai/api/v1/chat/completions';
     $payload = [

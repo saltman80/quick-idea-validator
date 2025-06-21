@@ -4,8 +4,8 @@
       "QuickIdeaValidator\\": "src/"
     },
     "files": [
-      "promptApiProcessor.php",
-      "ipRateLimiter.php",
+      "src/AI/promptApiProcessor.php",
+      "src/RateLimit/ipRateLimiter.php",
       "defineOpenRouterApiKey.php"
     ]
   }

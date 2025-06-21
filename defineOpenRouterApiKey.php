@@ -1,5 +1,7 @@
 <?php
 if (!defined('OPENROUTER_API_KEY')) {
-    // Hard-coded API key used for OpenRouter requests.
-    define('OPENROUTER_API_KEY', 'orkey-your-token');
+    $envKey = getenv('OPENROUTER_API_KEY');
+    if ($envKey !== false && $envKey !== '') {
+        define('OPENROUTER_API_KEY', $envKey);
+    }
 }

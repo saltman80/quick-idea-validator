@@ -7,5 +7,5 @@ Quick Idea Validator is a lightweight PHP and JavaScript tool that uses the Open
 
 ## Usage
 1. Run `composer install` to install PHP dependencies.
-2. Edit `defineOpenRouterApiKey.php` and replace `'orkey-your-token'` with your actual OpenRouter API key.
-3. Open `index.php` in your browser.
+2. Set the environment variable `OPENROUTER_API_KEY` with your API key or define the constant `OPENROUTER_API_KEY` in `defineOpenRouterApiKey.php`.
+3. Open `public/index.php` in your browser.

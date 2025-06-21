@@ -103,7 +103,7 @@ function sendIdeaToServer(e) {
     'X-Requested-With': 'XMLHttpRequest'
   };
   if (csrfToken) headers['X-CSRF-Token'] = csrfToken;
-  fetch('aivalidationhandler.php', {
+  fetch('api/validate.php', {
     method: 'POST',
     headers: headers,
     body: JSON.stringify({ idea })
