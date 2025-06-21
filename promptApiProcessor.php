@@ -1,3 +1,5 @@
+require_once __DIR__ . '/requestErrorLogManager.php';
+
 function sanitizeIdea(string $idea): string {
     $clean = strip_tags($idea);
     $clean = trim($clean);
@@ -19,8 +21,10 @@ function buildInstruction(): string {
 }
 
 function callOpenRouterAPI(string $instruction, string $idea): array {
+    $logger = new RequestErrorLogManager();
     $apiKey = getenv('OPENROUTER_API_KEY');
     if (empty($apiKey)) {
+        $logger->logError(500, 'Missing OpenRouter API key');
         throw new Exception('Missing OpenRouter API key.');
     }
 
@@ -51,6 +55,7 @@ function callOpenRouterAPI(string $instruction, string $idea): array {
     $response = curl_exec($ch);
     if ($response === false) {
         $err = curl_error($ch);
+        $logger->logError(0, 'cURL error: ' . $err, [ 'payload' => $payload ]);
         curl_close($ch);
         throw new Exception('cURL error: ' . $err);
     }
@@ -60,15 +65,27 @@ function callOpenRouterAPI(string $instruction, string $idea): array {
 
     $data = json_decode($response, true);
     if (json_last_error() !== JSON_ERROR_NONE || !is_array($data)) {
+        $logger->logError($httpCode, 'Invalid JSON response from API', [
+            'payload'  => $payload,
+            'response' => $response,
+        ]);
         throw new Exception('Invalid JSON response from API: ' . json_last_error_msg());
     }
 
     if ($httpCode < 200 || $httpCode >= 300) {
         $msg = $data['error']['message'] ?? 'API request failed with status ' . $httpCode;
+        $logger->logError($httpCode, 'API error: ' . $msg, [
+            'payload'  => $payload,
+            'response' => $response,
+        ]);
         throw new Exception('API error: ' . $msg);
     }
 
     if (!isset($data['choices'][0]['message']['content'])) {
+        $logger->logError($httpCode, 'Unexpected API response format', [
+            'payload'  => $payload,
+            'response' => $response,
+        ]);
         throw new Exception('Unexpected API response format.');
     }
 
