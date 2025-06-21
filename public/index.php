@@ -22,6 +22,9 @@ $csrf_token = $_SESSION['csrf_token'];
   </header>
 
   <main class="app-main">
+  <header class="site-header">
+    <img src="assets/images/quick-idea-validator-banner.png" alt="Quick Idea Validator" class="banner-img" />
+  </header>
   <form id="ideaForm" class="idea-form" action="api/validate.php" method="post" novalidate>
     <label for="ideaInput" class="sr-only">Describe your idea</label>
     <textarea
