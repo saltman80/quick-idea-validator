@@ -11,7 +11,7 @@ $csrf_token = $_SESSION['csrf_token'];
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Quick Idea Validator</title>
-  <link rel="stylesheet" href="assets/css/responsiveFormComponents.css">
+  <link rel="stylesheet" href="responsiveFormComponents.css">
 </head>
 <body>
   <header>
@@ -36,8 +36,8 @@ $csrf_token = $_SESSION['csrf_token'];
   <div id="spinner" class="spinner" hidden aria-live="polite" aria-busy="true"></div>
   <div id="resultContainer" aria-live="polite"></div>
 
-  <script src="assets/js/ariaLiveAnnouncer.js" defer></script>
-  <script src="assets/js/formSubmissionController.js" defer></script>
+  <script src="ariaLiveAnnouncer.js" defer></script>
+  <script src="formSubmissionController.js" defer></script>
 
   <footer>
     <p>&copy; <?php echo date('Y'); ?> Quick Idea Validator. <a href="privacy.html">Privacy</a> | <a href="terms.html">Terms</a></p>
