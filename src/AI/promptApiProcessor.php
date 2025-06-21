@@ -57,6 +57,9 @@ function callOpenRouterAPI(string $instruction, string $idea): array {
         CURLOPT_TIMEOUT         => 30,
     ]);
 
+    // Optional debug line to confirm the authorization header is set correctly
+    error_log('AUTH HEADER → Authorization: Bearer ' . $apiKey);
+
     $response = curl_exec($ch);
     if ($response === false) {
         $err = curl_error($ch);
