@@ -17,14 +17,16 @@ $csrf_token = $_SESSION['csrf_token'];
 </head>
 <body>
   <header class="site-header">
+    <img
+      src="assets/images/quick-idea-validator-banner.png"
+      alt="Quick Idea Validator"
+      class="banner-img"
+    />
     <h1>Quick Idea Validator</h1>
     <p class="instructions">Enter your idea below and get instant AI feedback. Nothing is stored or saved.</p>
   </header>
 
   <main class="app-main">
-  <header class="site-header">
-    <img src="assets/images/quick-idea-validator-banner.png" alt="Quick Idea Validator" class="banner-img" />
-  </header>
   <form id="ideaForm" class="idea-form" action="api/validate.php" method="post" novalidate>
     <label for="ideaInput" class="sr-only">Describe your idea</label>
     <textarea
