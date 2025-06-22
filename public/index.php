@@ -12,7 +12,7 @@ $csrf_token = $_SESSION['csrf_token'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Quick Idea Validator</title>
+    <title>Validate Your Idea Instantly</title>
     <link rel="stylesheet" href="assets/responsiveFormComponents.css">
 </head>
 <body>
@@ -22,7 +22,7 @@ $csrf_token = $_SESSION['csrf_token'];
       alt="Quick Idea Validator"
       class="banner-img"
     />
-    <h1>Quick Idea Validator</h1>
+    <h1>Validate Your Idea Instantly</h1>
     <p class="instructions">Enter your idea below and get instant AI feedback. Nothing is stored or saved.</p>
   </header>
 
@@ -54,7 +54,7 @@ $csrf_token = $_SESSION['csrf_token'];
   <script src="assets/formSubmissionController.js" defer></script>
 
   <footer>
-    <p>&copy; <?php echo date('Y'); ?> Quick Idea Validator. <a href="privacy.html">Privacy</a> | <a href="terms.html">Terms</a></p>
+    <p>&copy; <?php echo date('Y'); ?> Quick Idea Validator. <a href="privacy.php">Privacy</a> | <a href="terms.php">Terms</a></p>
   </footer>
 </body>
 </html>
