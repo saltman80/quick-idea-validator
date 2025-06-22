@@ -43,9 +43,13 @@ try {
     $parsed      = parseAIResponse($apiResp);
 
     echo json_encode([
-        'valid'    => strtoupper($parsed['verdict']) === 'YES',
-        'feedback' => implode(' ', $parsed['tips']),
-        'raw'      => $parsed['raw'],
+        'valid'          => strtoupper($parsed['verdict']) === 'YES',
+        'feedback'       => $parsed['raw'],
+        'verdict'        => $parsed['verdict'],
+        'market_demand'  => $parsed['market_demand'],
+        'considerations' => $parsed['considerations'],
+        'validation'     => $parsed['validation'],
+        'raw'            => $parsed['raw'],
     ]);
 } catch (Throwable $e) {
     $errorId = bin2hex(random_bytes(4));

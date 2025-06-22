@@ -13,12 +13,12 @@ function sanitizeIdea(string $idea): string {
 
 function buildInstruction(): string {
     return
-        "You are an AI that evaluates business or startup ideas for viability. " .
-        "Provide a clear verdict of YES or NO, followed by brief actionable tips. " .
-        "Respond in the following format:\n" .
+        "You are an AI that evaluates business ideas.  For each idea, respond with:\n" .
         "Verdict: YES or NO\n" .
-        "Tips: tip1; tip2; tip3\n\n" .
-        "Now evaluate the user's idea.";
+        "Market Demand: High, Medium, or Low (why in one sentence)\n" .
+        "Key Considerations: • ...; • ...; • ...\n" .
+        "Validation Plan: 1) ...; 2) ...; 3) ...\n\n" .
+        "Keep each section brief.";
 }
 
 function callOpenRouterAPI(string $instruction, string $idea): array {

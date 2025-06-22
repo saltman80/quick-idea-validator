@@ -157,6 +157,7 @@ footer {
   padding: 0.5rem 1rem;
   background: rgba(0, 0, 0, 0.3);
   border-radius: var(--border-radius);
+  white-space: pre-line;
 }
 
 #resultContainer.visible {
